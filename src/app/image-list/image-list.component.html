@@ -1,0 +1,53 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search"
+        [(ngModel)]="searchQuery"
+        name="search"
+        placeholder="Search for images"
+        style="float:left; width:80%;"
+      />
+      <button
+        (click)="searchImages(searchQuery)"
+        type="button"
+        class="btn btn-outline-success my-2 my-sm-0"
+      >
+        Find Images
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="alert alert-primary mt-1" role="alert" *ngIf="searching">
+    <h4>Fetching data...</h4>
+  </div>
+  <div class="alert alert-success mt-1" role="alert" *ngIf="imagesFound">
+    <h4>Results</h4>
+  </div>
+  <div class="row">
+    <div *ngFor="let image of images" class="col-3">
+      <a href="{{ image.pageURL }}" target="_bank" class="card">
+        <div class="card-header">
+          <div
+            class="avatar"
+            [ngStyle]="{
+              'background-image': 'url(' + image.userImageURL + ')',
+              'background-size': '40px 40px'
+            }"
+          ></div>
+          <h4>User: {{ image.user }}</h4>
+        </div>
+        <img src="{{ image.webformatURL }}" class="card-img-top" />
+        <div class="card-body">
+          <p>Tags: {{ image.tags }}</p>
+          <p>Comments: {{ image.comments }}</p>
+          <p>Likes: {{ image.likes }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
